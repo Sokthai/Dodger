@@ -5,7 +5,7 @@ import java.awt.Dimension;
 public class Main {
 
 	public static void main(String[] args) throws IOException{
-		Dimension dim = new Dimension(2200, 1700);
+		Dimension dim = new Dimension(1200, 1000);
 		JFrame frame = new JFrame("Alarm Clock");		
 		GameScreen game = new GameScreen();
 		

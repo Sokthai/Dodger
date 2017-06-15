@@ -22,24 +22,22 @@ import java.util.Random;
 public class GameScreen  extends JPanel{
 	ArrayList<Point> enemy = new ArrayList<Point>();
 	final BufferedImage img;
-	Point p;
+	Point hero = new Point(0, 0);
 	long t = 0;
 	Random random = new Random();
 	
 	public GameScreen() throws IOException{
 		super.setLayout(new BorderLayout());
 		String path = "hero.png";
-		int speed = 1000;
+		int speed = 100;
         img = ImageIO.read(new File(path));
-		 p = new Point(0, 0);
+		
 		 
 		this.setBackground(Color.BLACK);
 		
 		 
 		 ActionListener actionTask = new ActionListener(){
-				public void actionPerformed(ActionEvent event){						
-					p.x = p.x;
-					p.y = p.y + 1;
+				public void actionPerformed(ActionEvent event){											
 					repaint();
 					t++;
 				}
@@ -55,25 +53,24 @@ public class GameScreen  extends JPanel{
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		
-		if (t % 5 == 0){
-			for (int i = 0; i < 5; i++){
-				int x = random.nextInt(this.getWidth()) + 100;
-				x = (x > 2200)? 0 : x;
+		if (t % 20 == 0){
+			for (int i = 0; i < 7; i++){
+				int x = random.nextInt(this.getWidth()) + 60;
+				x = (x > 1200)? 0 : x;
 				g.drawImage(img, x, 0, null);
 				enemy.add(new Point(x, 0));
-				System.out.println(this.getWidth());
+				System.out.println(x);
 			}
 		}
 		
-		int end = (t % 5 == 0)? enemy.size() - 10 : enemy.size();
+		int end = (t % 5 == 0)? enemy.size() - 7 : enemy.size();
 		
-//		for (int i = 0; i < end; i++){
-//			int y = random.nextInt(10);
-//			enemy.set(i, new Point(enemy.get(i).x, y));
-//			g.drawImage(img, enemy.get(i).x, enemy.get(i).y,null);
-//			
-//			
-//		}
+		for (int i = 0; i < end; i++){
+			int y = random.nextInt(10);
+			enemy.set(i, new Point(enemy.get(i).x, enemy.get(i).y + y));
+			g.drawImage(img, enemy.get(i).x, enemy.get(i).y, null);		
+//			if (hero.x <= enemy.get(i).x && hero.y >= enemy.get(i).x)
+		}
 		
 		
 	}
